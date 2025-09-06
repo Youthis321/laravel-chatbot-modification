@@ -1,17 +1,18 @@
-# Laravel AI Chatbot Package
+# Laravel AI Chatbot Package (GROQ Modified)
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/halilcosdu/laravel-chatbot.svg?style=flat-square)](https://packagist.org/packages/halilcosdu/laravel-chatbot)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/halilcosdu-modification/laravel-chatbot.svg?style=flat-square)](https://packagist.org/packages/halilcosdu-modification/laravel-chatbot)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/halilcosdu/laravel-chatbot/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/halilcosdu/laravel-chatbot/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/halilcosdu/laravel-chatbot/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/halilcosdu/laravel-chatbot/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/halilcosdu/laravel-chatbot.svg?style=flat-square)](https://packagist.org/packages/halilcosdu/laravel-chatbot)
 
 Laravel Chatbot provides a robust and easy-to-use solution for integrating AI chatbots into your Laravel applications. Leveraging the power of OpenAI, it allows you to create, manage, and interact with chat threads directly from your Laravel application. Whether you're building a customer service chatbot or an interactive AI assistant, `laravel-chatbot` offers a streamlined, Laravel-friendly interface to the OpenAI API.
+
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require halilcosdu/laravel-chatbot
+composer require halilcosdu-modification/laravel-chatbot
 ```
 
 You can publish the config file with:
@@ -50,6 +51,7 @@ php artisan migrate
 ```
 
 This will migrate the following tables:
+
 ```bash
 Schema::create('threads', function (Blueprint $table) {
     $table->id();
@@ -60,6 +62,7 @@ Schema::create('threads', function (Blueprint $table) {
     $table->timestamps();
 });
 ```
+
 ```bash
 Schema::create('thread_messages', function (Blueprint $table) {
     $table->id();
@@ -90,6 +93,7 @@ ChatBot::deleteThread($id): void; /* Delete the thread */
 ```
 
 ### Raw Data - Not Saved to Database
+
 #### You can use the following methods to interact with the OpenAI API directly.
 
 ```php
@@ -132,8 +136,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Halil Cosdu](https://github.com/halilcosdu)
-- [All Contributors](../../contributors)
+-   [Halil Cosdu](https://github.com/halilcosdu)
+-   [All Contributors](../../contributors)
 
 ## License
 
