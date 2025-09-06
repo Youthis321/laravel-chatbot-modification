@@ -28,24 +28,28 @@ readonly class ChatBot
     public function listThreads(mixed $ownerId = null, mixed $search = null, mixed $appends = null): LengthAwarePaginator
     {
         $service = $this->getService();
+
         return $service->index($ownerId, $search, $appends);
     }
 
     public function createThread(string $subject, mixed $ownerId = null): Model|Builder
     {
         $service = $this->getService();
+
         return $service->create($subject, $ownerId);
     }
 
     public function thread(int $id, mixed $ownerId = null): Model|Builder
     {
         $service = $this->getService();
+
         return $service->show($id, $ownerId);
     }
 
     public function updateThread(string $message, int $id, mixed $ownerId = null): Model|Builder
     {
         $service = $this->getService();
+
         return $service->update($message, $id, $ownerId);
     }
 
@@ -58,64 +62,71 @@ readonly class ChatBot
     private function getService(): ChatBotService|ChatService
     {
         $provider = config('chatbot.provider', 'openai');
-        
+
         if ($provider === 'groq' && $this->groqChatService) {
             return $this->groqChatService;
         }
-        
+
         return $this->chatBotService;
     }
 
     public function createThreadAsRaw(string $subject): ThreadResponse
     {
         $rawService = $this->getRawService();
+
         return $rawService->createThreadAsRaw($subject);
     }
 
     public function threadAsRaw(string $threadId): ThreadResponse
     {
         $rawService = $this->getRawService();
+
         return $rawService->threadAsRaw($threadId);
     }
 
     public function messageAsRaw($threadId, $messageId): ThreadMessageResponse
     {
         $rawService = $this->getRawService();
+
         return $rawService->messageAsRaw($threadId, $messageId);
     }
 
     public function modifyMessageAsRaw(string $threadId, string $messageId, array $parameters): ThreadMessageResponse
     {
         $rawService = $this->getRawService();
+
         return $rawService->modifyMessageAsRaw($threadId, $messageId, $parameters);
     }
 
     public function listThreadMessagesAsRaw(string $remoteThreadId): ThreadMessageListResponse
     {
         $rawService = $this->getRawService();
+
         return $rawService->listThreadMessagesAsRaw($remoteThreadId);
     }
 
     public function updateThreadAsRaw(string $remoteThreadId, array $data): ThreadResponse
     {
         $rawService = $this->getRawService();
+
         return $rawService->updateThreadAsRaw($remoteThreadId, $data);
     }
 
     public function deleteThreadAsRaw(string $remoteThreadId): ThreadDeleteResponse
     {
         $rawService = $this->getRawService();
+
         return $rawService->deleteThreadAsRaw($remoteThreadId);
     }
 
     private function getRawService(): RawService|GroqRawService
     {
         $provider = config('chatbot.provider', 'openai');
-        
+
         if ($provider === 'groq' && $this->groqRawService) {
             return $this->groqRawService;
         }
-        
+
         return $this->rawService;
     }
 }

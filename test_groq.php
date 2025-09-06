@@ -13,7 +13,7 @@ if (file_exists('.env')) {
     $lines = file('.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
         if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
-            list($key, $value) = explode('=', $line, 2);
+            [$key, $value] = explode('=', $line, 2);
             $_ENV[trim($key)] = trim($value);
         }
     }
@@ -46,7 +46,7 @@ function testGroqConnection()
     $apiKey = config('chatbot.groq_api_key');
     $model = config('chatbot.groq_model');
 
-    if (!$apiKey || $apiKey === 'your_groq_api_key_here') {
+    if (! $apiKey || $apiKey === 'your_groq_api_key_here') {
         echo "❌ GROQ API Key belum di-set!\n";
         echo "   Silakan set GROQ_API_KEY di environment atau ganti di file ini.\n";
 
@@ -97,7 +97,7 @@ function testModelAvailability()
 
     $apiKey = config('chatbot.groq_api_key');
 
-    if (!$apiKey || $apiKey === 'your_groq_api_key_here') {
+    if (! $apiKey || $apiKey === 'your_groq_api_key_here') {
         echo "❌ GROQ API Key belum di-set!\n";
 
         return false;

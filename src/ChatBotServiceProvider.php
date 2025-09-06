@@ -3,7 +3,6 @@
 namespace HalilCosdu\ChatBot;
 
 use HalilCosdu\ChatBot\Services\ChatBotService;
-use HalilCosdu\ChatBot\Services\OpenAI\RawService;
 use InvalidArgumentException;
 use OpenAI as OpenAIFactory;
 use Spatie\LaravelPackageTools\Package;
@@ -38,7 +37,7 @@ class ChatBotServiceProvider extends PackageServiceProvider
     private function registerServices(): void
     {
         $provider = config('chatbot.provider', 'openai');
-        
+
         if ($provider === 'groq') {
             $this->registerGroqServices();
         } else {
@@ -108,7 +107,7 @@ class ChatBotServiceProvider extends PackageServiceProvider
     {
         $this->app->singleton(ChatBot::class, function () {
             $provider = config('chatbot.provider', 'openai');
-            
+
             if ($provider === 'groq') {
                 return new ChatBot(
                     chatBotService: $this->app->make(\HalilCosdu\ChatBot\Services\ChatBotService::class),
@@ -117,7 +116,7 @@ class ChatBotServiceProvider extends PackageServiceProvider
                     groqRawService: $this->app->make(\HalilCosdu\ChatBot\Services\Groq\RawService::class)
                 );
             }
-            
+
             return new ChatBot(
                 chatBotService: $this->app->make(\HalilCosdu\ChatBot\Services\ChatBotService::class),
                 rawService: $this->app->make(\HalilCosdu\ChatBot\Services\OpenAI\RawService::class)

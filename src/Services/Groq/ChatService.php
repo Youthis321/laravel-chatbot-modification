@@ -19,7 +19,7 @@ class ChatService
 
     public function index(mixed $ownerId = null, mixed $search = null, mixed $appends = null): LengthAwarePaginator
     {
-        return (new $this->model())::query()
+        return (new $this->model)::query()
             ->when($search, fn ($query) => $query->where('subject', 'like', "%{$search}%"))
             ->when($ownerId, fn ($query) => $query->where('owner_id', $ownerId))
             ->latest()
@@ -29,7 +29,7 @@ class ChatService
     public function create(string $subject, mixed $ownerId = null): Model|Builder
     {
         // Create a new thread in database
-        $thread = (new $this->model())::query()->create([
+        $thread = (new $this->model)::query()->create([
             'owner_id' => $ownerId,
             'subject' => Str::words($subject, 10),
             'remote_thread_id' => 'groq_'.uniqid(), // Generate unique ID for GROQ
@@ -65,7 +65,7 @@ class ChatService
 
     public function show(int $id, mixed $ownerId = null): Model|Builder
     {
-        return (new $this->model())::query()
+        return (new $this->model)::query()
             ->with('threadMessages')
             ->when($ownerId, fn ($query) => $query->where('owner_id', $ownerId))
             ->findOrFail($id);
@@ -73,7 +73,7 @@ class ChatService
 
     public function update(string $message, int $id, mixed $ownerId = null)
     {
-        $thread = (new $this->model())::query()
+        $thread = (new $this->model)::query()
             ->with('threadMessages')
             ->when($ownerId, fn ($query) => $query->where('owner_id', $ownerId))
             ->findOrFail($id);
@@ -117,7 +117,7 @@ class ChatService
 
     public function delete(int $id, mixed $ownerId = null): void
     {
-        $thread = (new $this->model())::query()
+        $thread = (new $this->model)::query()
             ->when($ownerId, fn ($query) => $query->where('owner_id', $ownerId))
             ->findOrFail($id);
 
